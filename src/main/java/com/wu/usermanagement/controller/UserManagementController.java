@@ -3,13 +3,14 @@ package com.wu.usermanagement.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wu.usermanagement.dto.UserDto;
+import com.wu.usermanagement.entity.Transactions;
+import com.wu.usermanagement.entity.Users;
+import com.wu.usermanagement.service.TransactionsService;
 import com.wu.usermanagement.service.UserService;
 
 @RestController
@@ -19,14 +20,20 @@ public class UserManagementController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("/users")
-	public ResponseEntity<List<UserDto>> getAllUsers() {
-		List<UserDto> users = userService.findAll();
+	@Autowired
+	private TransactionsService transactionsService;
 
-		if (users != null) {
-			return new ResponseEntity<>(users, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+	@GetMapping("/users")
+	public List<Users> getAllUsers() {
+		List<Users> users = userService.findAll();
+		return users;
+	}
+
+	@GetMapping("/users/{userName}/txnhistory")
+	public List<Transactions> viewTransactionHistory(@PathVariable String userName) {
+
+		List<Transactions> transactions = transactionsService.getAllTransactionByUser(userName);
+		return transactions;
+
 	}
 }

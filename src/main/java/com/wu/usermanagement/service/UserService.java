@@ -7,23 +7,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wu.usermanagement.dto.UserDto;
-import com.wu.usermanagement.entity.User;
-import com.wu.usermanagement.repository.UserRepository;
+import com.wu.usermanagement.entity.Users;
+import com.wu.usermanagement.repository.UsersRepository;
 
 @Service
 public class UserService {
 	
 	@Autowired
-	private UserRepository userRepository;
+	private UsersRepository usersRepository;
 
-	public List<UserDto> findAll() {
-		List<User> users=userRepository.findAll();
+	public List<Users> findAll() {
+		List<Users> users=usersRepository.findAll();
 		
-		 List<UserDto> listUserDtos = users.stream()
-                 .map(usr -> new UserDto(usr.getUserId(), usr.getUserName()))
-                 .collect(Collectors.toList());
-		
-		return listUserDtos;
+		/*
+		 * List<UserDto> listUserDtos = users.stream() .map(usr -> new
+		 * UserDto(usr.getUserId(), usr.getUserName())) .collect(Collectors.toList());
+		 */
+		return users;
 	}
 
 }
