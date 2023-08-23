@@ -1,12 +1,10 @@
 package com.wu.usermanagement.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.wu.usermanagement.dto.UserDto;
 import com.wu.usermanagement.entity.Users;
 import com.wu.usermanagement.repository.UsersRepository;
 

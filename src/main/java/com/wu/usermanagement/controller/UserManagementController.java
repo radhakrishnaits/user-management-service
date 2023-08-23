@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wu.usermanagement.entity.Transactions;
 import com.wu.usermanagement.entity.Users;
+import com.wu.usermanagement.model.TransactionHistoryResponse;
 import com.wu.usermanagement.service.TransactionsService;
 import com.wu.usermanagement.service.UserService;
 
@@ -30,10 +30,9 @@ public class UserManagementController {
 	}
 
 	@GetMapping("/users/{userName}/txnhistory")
-	public List<Transactions> viewTransactionHistory(@PathVariable String userName) {
+	public TransactionHistoryResponse viewTransactionHistory(@PathVariable String userName) {
 
-		List<Transactions> transactions = transactionsService.getAllTransactionByUser(userName);
-		return transactions;
+		return transactionsService.getAllTransactionByUser(userName);
 
 	}
 }
