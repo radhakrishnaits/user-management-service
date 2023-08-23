@@ -2,12 +2,12 @@ package com.wu.usermanagement.controller;
 
 import java.util.List;
 
+import com.wu.usermanagement.dto.SignInDto;
 import com.wu.usermanagement.dto.UserDto;
-import com.wu.usermanagement.model.Message;
+import com.wu.usermanagement.model.SignInResponse;
 import com.wu.usermanagement.model.SignUpResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.wu.usermanagement.entity.Users;
@@ -37,8 +37,15 @@ public class UserManagementController {
 	@PostMapping("/signup")
 	public SignUpResponse registerUser(@Valid @RequestBody UserDto signUpRequest) {
 
-		log.debug("started user registration {}");
+		log.debug("started user SignIn {}");
 		return userService.registerUser(signUpRequest);
+	}
+
+	@PostMapping("/signin")
+	public SignInResponse signInUser(@Valid @RequestBody SignInDto signInDto) {
+
+		log.debug("started user registration {}");
+		return userService.userSignIn(signInDto);
 	}
 
 	@GetMapping("/users/{userName}/txnhistory")
