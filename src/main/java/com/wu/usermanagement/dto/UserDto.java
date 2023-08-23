@@ -3,12 +3,14 @@ package com.wu.usermanagement.dto;
 import java.util.Date;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 
 @Getter
 @Setter
+@NoArgsConstructor
 @ToString
 public class UserDto {
 
@@ -16,7 +18,7 @@ public class UserDto {
 	private String userTitle;
 	private String firstName;
 	private String lastName;
-	private Date dob;
+	private String dob;
 	private String email;
 	private String password;
 	private String userType;
@@ -37,7 +39,7 @@ public class UserDto {
 	private String createdBy;
 	private Date modifiedOn;
 	private String modifiedBy;
-	public UserDto(long userId, String userTitle, String firstName, String lastName, Date dob, String email,
+	public UserDto(long userId, String userTitle, String firstName, String lastName, String dob, String email,
 			String userType, Long phoneNumber, String gender, String nationality, String address1, String city,
 			String state, Long pin, String country, String countryBirth, String identificationType,
 			String identificationNumber, String issuingAuthority, String status) {
