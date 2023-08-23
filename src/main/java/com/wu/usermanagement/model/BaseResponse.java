@@ -10,7 +10,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class BaseResponse {
-	protected String status;
+	protected int status;
 	protected Message message;
     protected List<Errors> errors;
 }
