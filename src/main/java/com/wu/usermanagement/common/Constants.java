@@ -28,6 +28,7 @@ public enum Constants {
 	/** The success message. */
 	SUCCESS_MESSAGE("api.success");
 
+
 	/** The str value. */
 	String strValue;
 	
