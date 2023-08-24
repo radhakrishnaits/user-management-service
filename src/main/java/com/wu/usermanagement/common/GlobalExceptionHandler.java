@@ -62,4 +62,18 @@ public class GlobalExceptionHandler {
                 null, Locale.ENGLISH)));
 	    return new ResponseEntity<>(baseResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	  }
+ 	
+	@ExceptionHandler(BadCredentialException.class)
+	  public ResponseEntity<BaseResponse> handleBadCredentialException(BadCredentialException e) {
+		 baseResponse=new BaseResponse();
+		 errors=new ArrayList<>();
+		 Errors error = new Errors(HttpStatus.UNAUTHORIZED.name(),e.getFieldName(), messageSource.getMessage(e.getErrorCode(),
+	                null, Locale.ENGLISH));
+		 errors.add(error);
+		 baseResponse.setErrors(errors);
+		 baseResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
+		 baseResponse.setMessage(new Message(HttpStatus.UNAUTHORIZED.name(),  messageSource.getMessage(e.getErrorCode(),
+              null, Locale.ENGLISH)));
+	    return new ResponseEntity<>(baseResponse, HttpStatus.UNAUTHORIZED);
+	  }
 }

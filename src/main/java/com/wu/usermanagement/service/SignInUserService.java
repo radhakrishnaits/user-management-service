@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.wu.usermanagement.common.ApplicationException;
+import com.wu.usermanagement.common.BadCredentialException;
 import com.wu.usermanagement.common.Constants;
 import com.wu.usermanagement.entity.Users;
 import com.wu.usermanagement.model.Message;
@@ -35,6 +36,8 @@ public class SignInUserService extends CommonService {
 	/** The message source. */
 	@Autowired
     private MessageSource messageSource;
+	
+	private Users user;
 
 	/**
 	 * User sign in.
@@ -46,15 +49,13 @@ public class SignInUserService extends CommonService {
 
 	
 		log.info("user Name" + signInRequest.getUsername());
-		Users user=usersRepository.getUserByUserName(signInRequest.getUsername()).orElseThrow(() -> new ApplicationException(Constants.USER_NOT_FOUND.getStrValue(), signInRequest.getUsername()));
+		user=usersRepository.getUserByUserName(signInRequest.getUsername()).orElseThrow(() -> new ApplicationException(Constants.USER_NOT_FOUND.getStrValue(), signInRequest.getUsername()));
 		log.debug("user sign in started {}..");
-		if (signInRequest.getUsername().equalsIgnoreCase(user.getEmail())
-				&& signInRequest.getPassword().equals(user.getPassword())) {
-			log.debug("user login success ..");
+		if (!(signInRequest.getUsername().equalsIgnoreCase(user.getEmail())
+				&& signInRequest.getPassword().equals(user.getPassword()))) {
+			throw new BadCredentialException(Constants.USER_LOGIN_FAIL.getStrValue(), "");
 
-		} else {
-			throw new ApplicationException(Constants.USER_LOGIN_FAIL.getStrValue(), "");
-		}
+		} 
 
 		log.info(" user " + signInRequest.getUsername() + " validated successfully");
 		return createResponse();
@@ -72,6 +73,9 @@ public class SignInUserService extends CommonService {
 		signInResponse.setStatus(HttpStatus.OK.value());
 		signInResponse.setMessage(new Message(Constants.SUCCESS.getStrValue(),  messageSource.getMessage(Constants.USER_LOGIN_SUCCES.getStrValue(),
                 null, Locale.ENGLISH)));
+		signInResponse.setUserName(user.getEmail());
+		signInResponse.setFirstName(user.getFirstName());
+		signInResponse.setLastName(user.getLastName());
 		return signInResponse;
 	}
 }

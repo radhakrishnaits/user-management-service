@@ -23,7 +23,7 @@ public class SignUpRequest {
 	private String address1;
 	private String city;
 	private String state;
-	private Long pinCode;
+	private Long pin;
 	private String country;
 	private String countryBirth;
 	private String identificationType;

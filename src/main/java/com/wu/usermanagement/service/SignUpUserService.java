@@ -56,6 +56,13 @@ public class SignUpUserService extends CommonService {
 		users.setCreatedOn(new Date().toString());
 		users.setModifiedBy("SYSTEM");
 		users.setModifiedOn(new Date().toString());
+		users.setEmail(signUpRequest.getEmail());
+		users.setUserType("SUBSCRIBER");
+		users.setAddress1(signUpRequest.getAddress1());
+		users.setPin(signUpRequest.getPin());
+		users.setCountry(signUpRequest.getCountry());
+		users.setCountryBirth(signUpRequest.getCountryBirth());
+		users.setStatus(Constants.ACTIVE_STATUS.getStrValue());
 		Optional<Users> isUserPresent = usersRepository.getUserByUserName(signUpRequest.getEmail());
 		if (isUserPresent.isPresent()) {
 			throw new ApplicationException(Constants.DUPLICATE_USER.getStrValue(), signUpRequest.getEmail());
@@ -68,6 +75,8 @@ public class SignUpUserService extends CommonService {
 					card.setCardExpiry(cardDto.getCardExpiry());
 					card.setNameOnCard(cardDto.getNameOnCard());
 					card.setStatus(Constants.ACTIVE_STATUS.getStrValue());
+					card.setModifiedBy("SYSTEM");
+					card.setModifiedOn(new Date().toString());
 					cardsSet.add(card);
 				}
 				users.setCards(cardsSet);
