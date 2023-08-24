@@ -1,6 +1,9 @@
 package com.wu.usermanagement.controller;
 
 import com.wu.usermanagement.entity.Beneficiary;
+import com.wu.usermanagement.model.BeneficiaryListResponse;
+import com.wu.usermanagement.model.BeneficiaryResponse;
+import com.wu.usermanagement.model.DeleteBeneficiaryResponse;
 import com.wu.usermanagement.service.BeneficiaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,24 +18,23 @@ public class BeneficiaryController {
     private BeneficiaryService service;
 
     @GetMapping("/all")
-    public List<Beneficiary> getAll(){
+    public BeneficiaryListResponse getAll(){
         return service.getAll();
     }
 
     @PostMapping("/new")
-    public Beneficiary addBen(@RequestBody Beneficiary beneficiary){
+    public BeneficiaryResponse addBen(@RequestBody Beneficiary beneficiary){
         return service.addBeneficiary(beneficiary);
     }
 
     @PutMapping("/update")
-    public Beneficiary updateBen(@RequestBody Beneficiary beneficiary){
+    public BeneficiaryResponse updateBen(@RequestBody Beneficiary beneficiary){
         return service.addBeneficiary(beneficiary);
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteBen(@PathVariable Long id){
-        Beneficiary beneficiary = service.getById(id);
-        service.deleteBeneficiary(beneficiary);
-        return "Successfully deleted!";
+    public DeleteBeneficiaryResponse deleteBen(@PathVariable Long id){
+        BeneficiaryResponse beneficiary = service.getById(id);
+        return service.deleteBeneficiary(beneficiary.getBeneficiary());
     }
 }
