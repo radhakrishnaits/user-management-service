@@ -1,10 +1,10 @@
 package com.wu.usermanagement.service;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import  java.util.HashSet;
 import java.util.Locale;
 import java.util.Optional;
+import  java.util.Set;
 
 import javax.validation.Valid;
 
@@ -60,16 +60,17 @@ public class SignUpUserService extends CommonService {
 		if (isUserPresent.isPresent()) {
 			throw new ApplicationException(Constants.DUPLICATE_USER.getStrValue(), signUpRequest.getEmail());
 		} else {
-			if(signUpRequest.isWishToAddCard()) {
-				List<Card> cards=new ArrayList<>();
-				for(CardDto cardDto:signUpRequest.getCard() ) {
+			if(signUpRequest.getWishToAddCard().endsWith("Y")) {
+				Set<Card> cardsSet = new HashSet<Card>();
+				for(CardDto cardDto:signUpRequest.getCardDetails() ) {
 					Card card=new Card();
 					card.setCardNumber(cardDto.getCardNumber());
 					card.setCardExpiry(cardDto.getCardExpiry());
 					card.setNameOnCard(cardDto.getNameOnCard());
-					cards.add(card);
+					card.setStatus(Constants.ACTIVE_STATUS.getStrValue());
+					cardsSet.add(card);
 				}
-				users.setCards(cards);
+				users.setCards(cardsSet);
 			}
 			users = usersRepository.save(users);
 		}

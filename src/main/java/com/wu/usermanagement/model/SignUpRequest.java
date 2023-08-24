@@ -29,7 +29,7 @@ public class SignUpRequest {
 	private String identificationType;
 	private String identificationNumber;
 	private String issuingAuthority;
-	private boolean wishToAddCard;
-	private List<CardDto> card;
+	private String wishToAddCard;
+	private List<CardDto> cardDetails;
 
 }

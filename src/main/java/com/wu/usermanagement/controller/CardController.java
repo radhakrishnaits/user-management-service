@@ -21,7 +21,7 @@ public class CardController {
         return cardService.addCard(card);
     }
     @DeleteMapping("/delete/{cardId}")
-    public String deleteCard(@PathVariable int cardId){
+    public String deleteCard(@PathVariable long cardId){
         Card card = repository.getById(cardId);
         cardService.deleteCard(card);
         return "Successfully deleted!";

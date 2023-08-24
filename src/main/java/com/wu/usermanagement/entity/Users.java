@@ -1,6 +1,6 @@
 package com.wu.usermanagement.entity;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -139,7 +140,13 @@ public class Users {
 	private String modifiedBy;
 
 	/** The cards. */
-	@OneToMany(mappedBy = "card",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Card> cards;
+	//@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy = "users")
+	//private Set<Card> cards;
+	
+	@OneToMany(targetEntity = Card.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+   @JoinColumn(name = "user_id")
+	private Set<Card> cards;
+	
+	
 
 }
