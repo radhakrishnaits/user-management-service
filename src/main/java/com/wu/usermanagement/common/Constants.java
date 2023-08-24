@@ -26,9 +26,14 @@ public enum Constants {
 	NO_RECORDS_EXISTS("records.not.exists"),
 	
 	/** The success message. */
-	SUCCESS_MESSAGE("api.success");
+	SUCCESS_MESSAGE("api.success"),
 
-
+	DUPLICATE_USER("user.duplicate"),
+	USER_LOGIN_FAIL("usermanagemt.user.login.fail"),
+	USER_LOGIN_SUCCES("usermanagemt.user.login.success"),
+	USER_LOGOUT_SUCCES("usermanagemt.user.logout.success"),
+	
+	USER_REGISTER_SUCCES("usermanagemt.user.registred.success");
 	/** The str value. */
 	String strValue;
 	

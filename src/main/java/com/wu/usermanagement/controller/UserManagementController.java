@@ -1,21 +1,28 @@
 package com.wu.usermanagement.controller;
 
-import java.util.List;
-
-import com.wu.usermanagement.dto.SignInDto;
-import com.wu.usermanagement.dto.UserDto;
-import com.wu.usermanagement.model.SignInResponse;
-import com.wu.usermanagement.model.SignUpResponse;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import com.wu.usermanagement.entity.Users;
-import com.wu.usermanagement.model.TransactionHistoryResponse;
-import com.wu.usermanagement.service.TransactionsHistoryService;
-import com.wu.usermanagement.service.UserService;
-
 import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.wu.usermanagement.model.SignInRequest;
+import com.wu.usermanagement.model.SignInResponse;
+import com.wu.usermanagement.model.SignOutRequest;
+import com.wu.usermanagement.model.SignOutResponse;
+import com.wu.usermanagement.model.SignUpRequest;
+import com.wu.usermanagement.model.SignUpResponse;
+import com.wu.usermanagement.model.TransactionHistoryResponse;
+import com.wu.usermanagement.service.SignInUserService;
+import com.wu.usermanagement.service.SignOutUserService;
+import com.wu.usermanagement.service.SignUpUserService;
+import com.wu.usermanagement.service.TransactionsHistoryService;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The Class UserManagementController.
@@ -25,26 +32,18 @@ import javax.validation.Valid;
 @Slf4j
 public class UserManagementController {
 
-	/** The user service. */
-	@Autowired
-	private UserService userService;
 
 	/** The transactions service. */
 	@Autowired
 	private TransactionsHistoryService transactionsHistoryService;
 
-	/**
-	 * Register users.
-	 *
-	 * @return the user
-	 */
-	@PostMapping("/signup")
-	public SignUpResponse registerUser(@Valid @RequestBody UserDto signUpRequest) {
+	@Autowired
+	private SignInUserService signInUserService;
+	@Autowired
+	private SignOutUserService signOutUserService;
 
-		log.debug("started user SignIn {}");
-		return userService.registerUser(signUpRequest);
-	}
-
+	@Autowired
+	private SignUpUserService signUpUserService;
 
 	/**
 	 * Login user.
@@ -52,24 +51,32 @@ public class UserManagementController {
 	 * @return based on input it will return success or failure response
 	 */
 	@PostMapping("/signin")
-	public SignInResponse signInUser(@Valid @RequestBody SignInDto signInDto) {
+	public SignInResponse signInUser(@Valid @RequestBody SignInRequest signInRequest) {
 
 		log.debug("started user registration {}");
-		return userService.userSignIn(signInDto);
+		return signInUserService.userSignIn(signInRequest);
+	}
+
+	@PostMapping("/signout")
+	public SignOutResponse signOutUser(@Valid @RequestBody SignOutRequest signOutRequest) {
+
+		log.debug("started user registration {}");
+		return signOutUserService.userSignOut(signOutRequest);
 	}
 
 	/**
-	 * Gets the all users.
+	 * Register users.
 	 *
-	 * @return the all users
+	 * @return the user
 	 */
-	@GetMapping("/users")
-	public List<Users> getAllUsers() {
-		List<Users> users = userService.findAll();
-		return users;
+	@PostMapping("/signup")
+	public SignUpResponse registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
+
+		log.debug("started user SignIn {}");
+		return signUpUserService.registerUser(signUpRequest);
 	}
 
-
+	
 
 	/**
 	 * View transaction history.
@@ -79,6 +86,7 @@ public class UserManagementController {
 	 */
 	@GetMapping("/users/{userName}/txnhistory")
 	public TransactionHistoryResponse viewTransactionHistoryByUserName(@PathVariable String userName) {
+		log.debug("started viewTransactionHistoryByUserName {}");
 		return transactionsHistoryService.viewTransactionHistoryByUserName(userName);
 	}
 }

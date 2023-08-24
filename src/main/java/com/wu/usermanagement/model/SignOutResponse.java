@@ -5,5 +5,5 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SignUpResponse extends BaseResponse{
+public class SignOutResponse extends BaseResponse{
 }
