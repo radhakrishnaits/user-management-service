@@ -1,8 +1,6 @@
 package com.wu.usermanagement.service;
 
 import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -23,8 +21,6 @@ public class UpdateUserService extends CommonService {
     private UsersRepository usersRepository;
     @Autowired
     private MessageSource messageSource;
-    private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@(.+)$";
-    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
 
     public UpdateUserResponse updateUserInfo(String userName , UpdateUserRequest updateUserRequest) {
     	Users user = usersRepository.getUserByUserName(userName).orElseThrow(() -> new ApplicationException(Constants.USER_NOT_FOUND.getStrValue(), userName));
@@ -48,16 +44,13 @@ public class UpdateUserService extends CommonService {
         usersRepository.save(user);
         return createResponse();
     }
-    public static boolean isValidEmail(String email) {
-        Matcher matcher = EMAIL_PATTERN.matcher(email);
-        return matcher.matches();
-    }
+   
     @Override
     public UpdateUserResponse createResponse() {
         UpdateUserResponse updateUserResponse;
         updateUserResponse = new UpdateUserResponse();
         updateUserResponse.setStatus(HttpStatus.OK.value());
-        updateUserResponse.setMessage(new Message(Constants.SUCCESS_MESSAGE.getStrValue(),  messageSource.getMessage(Constants.USER_MODIFIED.getStrValue(),
+        updateUserResponse.setMessage(new Message(Constants.SUCCESS.getStrValue(),  messageSource.getMessage(Constants.USER_MODIFIED.getStrValue(),
                 null, Locale.ENGLISH)));
         return updateUserResponse;
     }

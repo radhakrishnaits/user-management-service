@@ -32,13 +32,12 @@ public enum Constants {
 	USER_LOGIN_FAIL("usermanagemt.user.login.fail"),
 	USER_LOGIN_SUCCES("usermanagemt.user.login.success"),
 	USER_LOGOUT_SUCCES("usermanagemt.user.logout.success"),
-	
 	USER_REGISTER_SUCCES("usermanagemt.user.registred.success"),
+	 USER_MODIFIED("usermanagemt.user.modified.success"),
 	INVALID_CARD("invalid.card"),
 	EMAIL_INVALID("E4012"),
 	INVALID_EMAIL_MESSAGE("email.Invalid"),
     CARD_ADDED_SUCCESS("card.success"),
-    USER_MODIFIED("user.modified"),
 	CARD_NOT_FOUND_MESSAGE("card.not.found");
 	/** The str value. */
 	String strValue;
