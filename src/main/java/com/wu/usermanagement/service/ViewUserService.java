@@ -16,15 +16,29 @@ import com.wu.usermanagement.model.ViewUserResponse;
 import com.wu.usermanagement.repository.UsersRepository;
 
 
+/**
+ * The Class ViewUserService.
+ */
 @Service
 public class ViewUserService {
 
+    /** The users repository. */
     @Autowired
     private UsersRepository usersRepository;
+    
+    /** The message source. */
     @Autowired
     private MessageSource messageSource;
 
+    /** The view user response. */
     private  ViewUserResponse viewUserResponse;
+    
+    /**
+     * Gets the user by username.
+     *
+     * @param userName the user name
+     * @return the user by username
+     */
     public ViewUserResponse getUserByUsername(String userName) {
     	 viewUserResponse = new ViewUserResponse();
     	Users user = usersRepository.getUserByUserName(userName).orElseThrow(() -> new ApplicationException(Constants.USER_NOT_FOUND.getStrValue(), userName));
@@ -33,6 +47,12 @@ public class ViewUserService {
         return createResponse();
     }
 
+    /**
+     * Populate user deatsils.
+     *
+     * @param user the user
+     * @return the users dto
+     */
     private UsersDto populateUserDeatsils(Users user) {
 		UsersDto usersDto=new UsersDto();
 		usersDto.setUserTitle(user.getUserTitle());
@@ -55,6 +75,11 @@ public class ViewUserService {
 		return usersDto;
 	}
 
+	/**
+	 * Creates the response.
+	 *
+	 * @return the view user response
+	 */
 	public ViewUserResponse createResponse() {
 
        

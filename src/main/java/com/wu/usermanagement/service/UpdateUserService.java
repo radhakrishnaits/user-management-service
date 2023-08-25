@@ -15,13 +15,27 @@ import com.wu.usermanagement.model.UpdateUserRequest;
 import com.wu.usermanagement.model.UpdateUserResponse;
 import com.wu.usermanagement.repository.UsersRepository;
 
+/**
+ * The Class UpdateUserService.
+ */
 @Service
 public class UpdateUserService extends CommonService {
+    
+    /** The users repository. */
     @Autowired
     private UsersRepository usersRepository;
+    
+    /** The message source. */
     @Autowired
     private MessageSource messageSource;
 
+    /**
+     * Update user info.
+     *
+     * @param userName the user name
+     * @param updateUserRequest the update user request
+     * @return the update user response
+     */
     public UpdateUserResponse updateUserInfo(String userName , UpdateUserRequest updateUserRequest) {
     	Users user = usersRepository.getUserByUserName(userName).orElseThrow(() -> new ApplicationException(Constants.USER_NOT_FOUND.getStrValue(), userName));
     	 user.setUserTitle(updateUserRequest.getUserTitle());
@@ -45,6 +59,11 @@ public class UpdateUserService extends CommonService {
         return createResponse();
     }
    
+    /**
+     * Creates the response.
+     *
+     * @return the update user response
+     */
     @Override
     public UpdateUserResponse createResponse() {
         UpdateUserResponse updateUserResponse;
