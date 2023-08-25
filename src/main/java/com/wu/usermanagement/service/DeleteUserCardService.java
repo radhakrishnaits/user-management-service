@@ -52,7 +52,7 @@ public class DeleteUserCardService extends CommonService {
 				.orElseThrow(() -> new ApplicationException(Constants.USER_NOT_FOUND.getStrValue(), userName));
 		List<UserCards> userCards = cardRepository.getUserCards(user.getUserId());
 		List<UserCards> userCardsCheck = userCards.stream()
-				.filter(card -> card.getCardNumber() == cardNumber)
+				.filter(card -> card.getCardNumber().intValue() == cardNumber.intValue())
 				.collect(Collectors.toList());
 		
 		if (userCardsCheck != null && userCardsCheck.size() > 0) {

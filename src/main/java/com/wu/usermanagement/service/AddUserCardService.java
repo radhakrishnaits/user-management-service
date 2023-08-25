@@ -80,7 +80,7 @@ public class AddUserCardService extends CommonService {
 		addCardResponse = new AddUserCardResponse();
 		addCardResponse.setStatus(HttpStatus.OK.value());
 		addCardResponse.setMessage(new Message(Constants.SUCCESS.getStrValue(),
-				messageSource.getMessage(Constants.SUCCESS_MESSAGE.getStrValue(), null, Locale.ENGLISH)));
+				messageSource.getMessage(Constants.USER_CARD_ADDED_SUCCESS.getStrValue(), null, Locale.ENGLISH)));
 		return addCardResponse;
 	}
 }
