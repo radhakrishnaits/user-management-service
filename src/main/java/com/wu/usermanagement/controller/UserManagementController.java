@@ -17,10 +17,12 @@ import com.wu.usermanagement.model.SignOutResponse;
 import com.wu.usermanagement.model.SignUpRequest;
 import com.wu.usermanagement.model.SignUpResponse;
 import com.wu.usermanagement.model.TransactionHistoryResponse;
+import com.wu.usermanagement.model.ViewUserResponse;
 import com.wu.usermanagement.service.SignInUserService;
 import com.wu.usermanagement.service.SignOutUserService;
 import com.wu.usermanagement.service.SignUpUserService;
 import com.wu.usermanagement.service.TransactionsHistoryService;
+import com.wu.usermanagement.service.ViewUserService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,6 +46,9 @@ public class UserManagementController {
 
 	@Autowired
 	private SignUpUserService signUpUserService;
+	
+	@Autowired
+	private ViewUserService  viewUserService;
 
 	/**
 	 * Login user.
@@ -88,5 +93,12 @@ public class UserManagementController {
 	public TransactionHistoryResponse viewTransactionHistoryByUserName(@PathVariable String userName) {
 		log.debug("started viewTransactionHistoryByUserName {}");
 		return transactionsHistoryService.viewTransactionHistoryByUserName(userName);
+	}
+	
+	
+	@GetMapping("/users/{userName}")
+	public ViewUserResponse viewUserByUserName(@PathVariable String userName) {
+		log.debug("started viewUserByUserName {}");
+		return viewUserService.getUserByUsername(userName);
 	}
 }
