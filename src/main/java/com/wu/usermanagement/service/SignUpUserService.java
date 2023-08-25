@@ -67,7 +67,7 @@ public class SignUpUserService extends CommonService {
 		if (isUserPresent.isPresent()) {
 			throw new ApplicationException(Constants.DUPLICATE_USER.getStrValue(), signUpRequest.getEmail());
 		} else {
-			if(signUpRequest.getWishToAddCard().endsWith("Y")) {
+			if(signUpRequest.getWishToAddCard().equalsIgnoreCase("Y")) {
 				Set<Card> cardsSet = new HashSet<Card>();
 				for(CardDto cardDto:signUpRequest.getCardDetails() ) {
 					Card card=new Card();
@@ -81,7 +81,7 @@ public class SignUpUserService extends CommonService {
 				}
 				users.setCards(cardsSet);
 			}
-			users = usersRepository.save(users);
+			usersRepository.save(users);
 		}
 		log.info(" user " + signUpRequest.getFirstName() + " successfully register into database ..");
 		return createResponse();

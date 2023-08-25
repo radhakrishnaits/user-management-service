@@ -2,6 +2,12 @@ package com.wu.usermanagement.controller;
 
 import javax.validation.Valid;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * The Class UserManagementController.
  */
+@Tag(name = "user-management", description = "user-management APIs")
 @RestController
 @RequestMapping("/user-management/v1")
 @Slf4j
@@ -50,6 +57,14 @@ public class UserManagementController {
 	 *
 	 * @return based on input it will return success or failure response
 	 */
+	@Operation(
+			summary = "Sign in by user_Id",
+			description = "sign in validation",
+			tags = { "signInUser", "valid user get successful login" })
+	@ApiResponses({
+			@ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = SignInResponse.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
 	@PostMapping("/signin")
 	public SignInResponse signInUser(@Valid @RequestBody SignInRequest signInRequest) {
 
@@ -57,6 +72,14 @@ public class UserManagementController {
 		return signInUserService.userSignIn(signInRequest);
 	}
 
+	@Operation(
+			summary = "user SignOut",
+			description = "user SignOut",
+			tags = { "user SignOut", "valid user successful signout" })
+	@ApiResponses({
+			@ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = SignOutResponse.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
 	@PostMapping("/signout")
 	public SignOutResponse signOutUser(@Valid @RequestBody SignOutRequest signOutRequest) {
 
@@ -69,6 +92,14 @@ public class UserManagementController {
 	 *
 	 * @return the user
 	 */
+	@Operation(
+			summary = "Register user",
+			description = "Register user",
+			tags = { "Register user", "valid user successful Registered" })
+	@ApiResponses({
+			@ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = SignUpResponse.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
 	@PostMapping("/signup")
 	public SignUpResponse registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
 
@@ -84,6 +115,14 @@ public class UserManagementController {
 	 * @param userName the user name
 	 * @return the transaction history response
 	 */
+	@Operation(
+			summary = "viewTransactionHistoryByUserName",
+			description = "viewTransactionHistoryByUserName",
+			tags = { "viewTransactionHistoryByUserName", "viewTransactionHistoryByUserName" })
+	@ApiResponses({
+			@ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = TransactionHistoryResponse.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
 	@GetMapping("/users/{userName}/txnhistory")
 	public TransactionHistoryResponse viewTransactionHistoryByUserName(@PathVariable String userName) {
 		log.debug("started viewTransactionHistoryByUserName {}");
