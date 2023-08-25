@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,11 +18,14 @@ import com.wu.usermanagement.model.SignOutResponse;
 import com.wu.usermanagement.model.SignUpRequest;
 import com.wu.usermanagement.model.SignUpResponse;
 import com.wu.usermanagement.model.TransactionHistoryResponse;
+import com.wu.usermanagement.model.UpdateUserRequest;
+import com.wu.usermanagement.model.UpdateUserResponse;
 import com.wu.usermanagement.model.ViewUserResponse;
 import com.wu.usermanagement.service.SignInUserService;
 import com.wu.usermanagement.service.SignOutUserService;
 import com.wu.usermanagement.service.SignUpUserService;
 import com.wu.usermanagement.service.TransactionsHistoryService;
+import com.wu.usermanagement.service.UpdateUserService;
 import com.wu.usermanagement.service.ViewUserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -49,6 +53,9 @@ public class UserManagementController {
 	
 	@Autowired
 	private ViewUserService  viewUserService;
+	
+	@Autowired
+	private UpdateUserService updateUserService;
 
 	/**
 	 * Login user.
@@ -100,5 +107,10 @@ public class UserManagementController {
 	public ViewUserResponse viewUserByUserName(@PathVariable String userName) {
 		log.debug("started viewUserByUserName {}");
 		return viewUserService.getUserByUsername(userName);
+	}
+	
+	@PutMapping("/users/{userName}")
+	public UpdateUserResponse updateUser(@PathVariable String userName , @RequestBody UpdateUserRequest updateUserRequest){
+		return updateUserService.updateUserInfo(userName,updateUserRequest);
 	}
 }

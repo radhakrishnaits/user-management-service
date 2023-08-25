@@ -1,7 +1,5 @@
 package com.wu.usermanagement.dto;
 
-import javax.persistence.Column;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -40,7 +38,6 @@ public class UsersDto {
 	private String email;
 
 	/** The phone number. */
-	@Column(name = "phone_number")
 	private Long phoneNumber;
 
 	/** The gender. */
