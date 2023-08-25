@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wu.usermanagement.model.AddBeneficiaryRequest;
 import com.wu.usermanagement.model.AddBeneficiaryResponse;
+import com.wu.usermanagement.model.AddUserCardRequest;
+import com.wu.usermanagement.model.AddUserCardResponse;
 import com.wu.usermanagement.model.DeleteBeneficiaryResponse;
+import com.wu.usermanagement.model.DeleteUserCardResponse;
 import com.wu.usermanagement.model.SignInRequest;
 import com.wu.usermanagement.model.SignInResponse;
 import com.wu.usermanagement.model.SignOutRequest;
@@ -29,7 +32,9 @@ import com.wu.usermanagement.model.UpdateUserResponse;
 import com.wu.usermanagement.model.ViewUserBeneficiaryResponse;
 import com.wu.usermanagement.model.ViewUserResponse;
 import com.wu.usermanagement.service.AddUserBeneficiaryService;
+import com.wu.usermanagement.service.AddUserCardService;
 import com.wu.usermanagement.service.DeleteUserBeneficiaryService;
+import com.wu.usermanagement.service.DeleteUserCardService;
 import com.wu.usermanagement.service.SignInUserService;
 import com.wu.usermanagement.service.SignOutUserService;
 import com.wu.usermanagement.service.SignUpUserService;
@@ -57,6 +62,8 @@ import lombok.extern.slf4j.Slf4j;
 /** The Constant log. */
 
 /** The Constant log. */
+
+/** The Constant log. */
 @Slf4j
 public class UserManagementController {
 
@@ -67,7 +74,7 @@ public class UserManagementController {
 	/** The sign in user service. */
 	@Autowired
 	private SignInUserService signInUserService;
-	
+
 	/** The sign out user service. */
 	@Autowired
 	private SignOutUserService signOutUserService;
@@ -84,21 +91,30 @@ public class UserManagementController {
 	@Autowired
 	private UpdateUserService updateUserService;
 
-	  /** The add user beneficiary service. */
-  	@Autowired
-	    private AddUserBeneficiaryService addUserBeneficiaryService;
-	  
-	  /** The user beneficiary service. */
-  	@Autowired
-	  private UpdateUserBeneficiaryService userBeneficiaryService;
-	  
-  	/** The delete user beneficiary service. */
-  	@Autowired
-	  private DeleteUserBeneficiaryService deleteUserBeneficiaryService; 
-	  
-  	/** The view user beneficiary service. */
-  	@Autowired
-	  private ViewUserBeneficiaryService viewUserBeneficiaryService;
+	/** The add user beneficiary service. */
+	@Autowired
+	private AddUserBeneficiaryService addUserBeneficiaryService;
+
+	/** The user beneficiary service. */
+	@Autowired
+	private UpdateUserBeneficiaryService userBeneficiaryService;
+
+	/** The delete user beneficiary service. */
+	@Autowired
+	private DeleteUserBeneficiaryService deleteUserBeneficiaryService;
+
+	/** The view user beneficiary service. */
+	@Autowired
+	private ViewUserBeneficiaryService viewUserBeneficiaryService;
+
+	/** The add user card service. */
+	@Autowired
+	private AddUserCardService addUserCardService;
+
+	/** The delete user card service. */
+	@Autowired
+	private DeleteUserCardService deleteUserCardService;
+
 	/**
 	 * Login user.
 	 *
@@ -189,7 +205,7 @@ public class UserManagementController {
 	/**
 	 * Update user.
 	 *
-	 * @param userName the user name
+	 * @param userName          the user name
 	 * @param updateUserRequest the update user request
 	 * @return the update user response
 	 */
@@ -198,89 +214,119 @@ public class UserManagementController {
 			@RequestBody UpdateUserRequest updateUserRequest) {
 		return updateUserService.updateUserInfo(userName, updateUserRequest);
 	}
-	
-	
 
+	/**
+	 * Adds the user beneficiary.
+	 *
+	 * @param userName              the user name
+	 * @param addBeneficiaryRequest the add beneficiary request
+	 * @return the adds the beneficiary response
+	 */
+	@Operation(summary = "Create new Beneficiary", description = "Create new Beneficiary", tags = {
+			"create new Beneficiary", "add new Beneficiary" })
+	@ApiResponses({ @ApiResponse(responseCode = "200", content = {
+			@Content(schema = @Schema(implementation = AddBeneficiaryResponse.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
+	@PostMapping("/users/{userName}/beneficiary")
+	public AddBeneficiaryResponse addUserBeneficiary(@PathVariable String userName,
+			@RequestBody AddBeneficiaryRequest addBeneficiaryRequest) {
+		return addUserBeneficiaryService.addUserBeneficiary(userName, addBeneficiaryRequest);
+	}
 
-	    /**
-    	 * Adds the user beneficiary.
-    	 *
-    	 * @param userName the user name
-    	 * @param addBeneficiaryRequest the add beneficiary request
-    	 * @return the adds the beneficiary response
-    	 */
-    	@Operation(
-	            summary = "Create new Beneficiary",
-	            description = "Create new Beneficiary",
-	            tags = { "create new Beneficiary", "add new Beneficiary" })
-	    @ApiResponses({
-	            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = AddBeneficiaryResponse.class), mediaType = "application/json") }),
-	            @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
-	            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
-	    @PostMapping("/users/{userName}/beneficiary")
-	   	    public AddBeneficiaryResponse addUserBeneficiary(@PathVariable String userName,@RequestBody AddBeneficiaryRequest addBeneficiaryRequest){
-	        return addUserBeneficiaryService.addUserBeneficiary(userName,addBeneficiaryRequest);
-	    }
+	/**
+	 * Update user beneficiary.
+	 *
+	 * @param userName                 the user name
+	 * @param nickName                 the nick name
+	 * @param updateBeneficiaryRequest the update beneficiary request
+	 * @return the update beneficiary response
+	 */
+	@Operation(summary = "update Beneficiary", description = "update Beneficiary", tags = { "update Beneficiary",
+			"update Beneficiary" })
+	@ApiResponses({ @ApiResponse(responseCode = "200", content = {
+			@Content(schema = @Schema(implementation = AddBeneficiaryResponse.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
 
-	    /**
-    	 * Update user beneficiary.
-    	 *
-    	 * @param userName the user name
-    	 * @param nickName the nick name
-    	 * @param updateBeneficiaryRequest the update beneficiary request
-    	 * @return the update beneficiary response
-    	 */
-    	@Operation(
-	            summary = "update Beneficiary",
-	            description = "update Beneficiary",
-	            tags = { "update Beneficiary", "update Beneficiary" })
-	    @ApiResponses({
-	            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = AddBeneficiaryResponse.class), mediaType = "application/json") }),
-	            @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
-	            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
-	    
-	    @PutMapping("/users/{userName}/beneficiary/{nickName}")
-	    public UpdateBeneficiaryResponse updateUserBeneficiary(@PathVariable String userName, @PathVariable String nickName,@RequestBody UpdateBeneficiaryRequest updateBeneficiaryRequest){
-	        return  userBeneficiaryService.updateUserBeneficiary(userName, nickName, updateBeneficiaryRequest);
-	    }
+	@PutMapping("/users/{userName}/beneficiary/{nickName}")
+	public UpdateBeneficiaryResponse updateUserBeneficiary(@PathVariable String userName, @PathVariable String nickName,
+			@RequestBody UpdateBeneficiaryRequest updateBeneficiaryRequest) {
+		return userBeneficiaryService.updateUserBeneficiary(userName, nickName, updateBeneficiaryRequest);
+	}
 
-	    /**
-    	 * Delete user beneficiary.
-    	 *
-    	 * @param userName the user name
-    	 * @param nickName the nick name
-    	 * @return the delete beneficiary response
-    	 */
-    	@Operation(
-	            summary = "delete Beneficiary",
-	            description = "delete Beneficiary",
-	            tags = { "delete Beneficiary", "delete Beneficiary" })
-	    @ApiResponses({
-	            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = DeleteBeneficiaryResponse.class), mediaType = "application/json") }),
-	            @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
-	            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
-	    @DeleteMapping("/users/{userName}/beneficiary/{nickName}")
-	    public DeleteBeneficiaryResponse deleteUserBeneficiary(@PathVariable String userName, @PathVariable String nickName){
-	        return deleteUserBeneficiaryService.deleteUserBeneficiary(userName,nickName);
-	    }
-	    
+	/**
+	 * Delete user beneficiary.
+	 *
+	 * @param userName the user name
+	 * @param nickName the nick name
+	 * @return the delete beneficiary response
+	 */
+	@Operation(summary = "delete Beneficiary", description = "delete Beneficiary", tags = { "delete Beneficiary",
+			"delete Beneficiary" })
+	@ApiResponses({ @ApiResponse(responseCode = "200", content = {
+			@Content(schema = @Schema(implementation = DeleteBeneficiaryResponse.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
+	@DeleteMapping("/users/{userName}/beneficiary/{nickName}")
+	public DeleteBeneficiaryResponse deleteUserBeneficiary(@PathVariable String userName,
+			@PathVariable String nickName) {
+		return deleteUserBeneficiaryService.deleteUserBeneficiary(userName, nickName);
+	}
 
-		  /**
-  		 * View user beneficiary response.
-  		 *
-  		 * @param userName the user name
-  		 * @return the view user beneficiary response
-  		 */
-  		@Operation(
-		            summary = "get All Beneficiary",
-		            description = "get All Beneficiary",
-		            tags = { "BeneficiaryList", "List out all Beneficiary data" })
-		    @ApiResponses({
-		            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = ViewUserBeneficiaryResponse.class), mediaType = "application/json") }),
-		            @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
-		            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
-		    @GetMapping("/users/{userName}/beneficiary")
-		    public ViewUserBeneficiaryResponse viewUserBeneficiaryResponse(@PathVariable String userName){
-		        return viewUserBeneficiaryService.viewUserBeneficiary(userName);
-		    }
+	/**
+	 * View user beneficiary response.
+	 *
+	 * @param userName the user name
+	 * @return the view user beneficiary response
+	 */
+	@Operation(summary = "get All Beneficiary", description = "get All Beneficiary", tags = { "BeneficiaryList",
+			"List out all Beneficiary data" })
+	@ApiResponses({ @ApiResponse(responseCode = "200", content = {
+			@Content(schema = @Schema(implementation = ViewUserBeneficiaryResponse.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
+	@GetMapping("/users/{userName}/beneficiary")
+	public ViewUserBeneficiaryResponse viewUserBeneficiaryResponse(@PathVariable String userName) {
+		return viewUserBeneficiaryService.viewUserBeneficiary(userName);
+	}
+
+	/**
+	 * Adds the user card.
+	 *
+	 * @param userName           the user name
+	 * @param addUserCardRequest the add user card request
+	 * @return the adds the user card response
+	 */
+	@Operation(summary = "save card based on user wishlist", description = "save card based on user wishlist", tags = {
+			"save Card details", "save card based on user wishlist" })
+	@ApiResponses({ @ApiResponse(responseCode = "200", content = {
+			@Content(schema = @Schema(implementation = AddUserCardResponse.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
+
+	@PostMapping("/users/{userName}/card")
+	public AddUserCardResponse addUserCard(@PathVariable String userName,
+			@RequestBody AddUserCardRequest addUserCardRequest) {
+		return addUserCardService.addUserCard(userName, addUserCardRequest);
+	}
+
+	/**
+	 * Delete user card.
+	 *
+	 * @param userName   the user name
+	 * @param cardNumber the card number
+	 * @return the delete user card response
+	 */
+	@Operation(summary = "delete card details", description = "delete card details", tags = { "delete card details",
+			"delete card details" })
+	@ApiResponses({
+			@ApiResponse(responseCode = "200", content = {
+					@Content(schema = @Schema(implementation = String.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
+	@DeleteMapping("/users/{userName}/card/{cardNumber}")
+	public DeleteUserCardResponse deleteUserCard(@PathVariable String userName, @PathVariable Long cardNumber) {
+		return deleteUserCardService.deleteUserCard(userName, cardNumber);
+	}
 }

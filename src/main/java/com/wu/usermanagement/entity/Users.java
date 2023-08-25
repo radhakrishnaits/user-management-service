@@ -143,9 +143,9 @@ public class Users {
 	//@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy = "users")
 	//private Set<Card> cards;
 	
-	@OneToMany(targetEntity = Card.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = UserCards.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
    @JoinColumn(name = "user_id")
-	private Set<Card> cards;
+	private Set<UserCards> cards;
 	
 	
 

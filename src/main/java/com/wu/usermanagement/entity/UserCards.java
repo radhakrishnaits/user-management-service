@@ -30,7 +30,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "user_cards")
-public class Card {
+public class UserCards {
 
 	/** The card id. */
 	@Id
@@ -39,7 +39,7 @@ public class Card {
 	private int cardId;
 	
 	@Column(name = "user_id",insertable = false,updatable = false)
-	private int userId;
+	private Long userId;
 
 	/** The card number. */
 	@Column(name = "card_number")

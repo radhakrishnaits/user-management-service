@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import com.wu.usermanagement.common.ApplicationException;
 import com.wu.usermanagement.common.Constants;
 import com.wu.usermanagement.dto.CardDto;
-import com.wu.usermanagement.entity.Card;
+import com.wu.usermanagement.entity.UserCards;
 import com.wu.usermanagement.entity.Users;
 import com.wu.usermanagement.model.Message;
 import com.wu.usermanagement.model.SignUpRequest;
@@ -68,9 +68,9 @@ public class SignUpUserService extends CommonService {
 			throw new ApplicationException(Constants.DUPLICATE_USER.getStrValue(), signUpRequest.getEmail());
 		} else {
 			if(signUpRequest.getWishToAddCard().equalsIgnoreCase("Y")) {
-				Set<Card> cardsSet = new HashSet<Card>();
+				Set<UserCards> cardsSet = new HashSet<UserCards>();
 				for(CardDto cardDto:signUpRequest.getCardDetails() ) {
-					Card card=new Card();
+					UserCards card=new UserCards();
 					card.setCardNumber(cardDto.getCardNumber());
 					card.setCardExpiry(cardDto.getCardExpiry());
 					card.setNameOnCard(cardDto.getNameOnCard());
