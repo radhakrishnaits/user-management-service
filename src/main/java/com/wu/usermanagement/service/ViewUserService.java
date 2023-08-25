@@ -1,6 +1,10 @@
 package com.wu.usermanagement.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -9,7 +13,9 @@ import org.springframework.stereotype.Service;
 
 import com.wu.usermanagement.common.ApplicationException;
 import com.wu.usermanagement.common.Constants;
+import com.wu.usermanagement.dto.UserCardsDto;
 import com.wu.usermanagement.dto.UsersDto;
+import com.wu.usermanagement.entity.UserCards;
 import com.wu.usermanagement.entity.Users;
 import com.wu.usermanagement.model.Message;
 import com.wu.usermanagement.model.ViewUserResponse;
@@ -42,8 +48,7 @@ public class ViewUserService {
     public ViewUserResponse getUserByUsername(String userName) {
     	 viewUserResponse = new ViewUserResponse();
     	Users user = usersRepository.getUserByUserName(userName).orElseThrow(() -> new ApplicationException(Constants.USER_NOT_FOUND.getStrValue(), userName));
-        UsersDto usersDto=populateUserDeatsils(user);
-        viewUserResponse.setUserDetails(usersDto);
+        populateUserDeatsils(user);
         return createResponse();
     }
 
@@ -53,7 +58,7 @@ public class ViewUserService {
      * @param user the user
      * @return the users dto
      */
-    private UsersDto populateUserDeatsils(Users user) {
+    private void populateUserDeatsils(Users user) {
 		UsersDto usersDto=new UsersDto();
 		usersDto.setUserTitle(user.getUserTitle());
 		usersDto.setFirstName(user.getFirstName());
@@ -72,7 +77,19 @@ public class ViewUserService {
 		usersDto.setIdentificationType(user.getIdentificationType());
 		usersDto.setIdentificationNumber(user.getIdentificationNumber());
 		usersDto.setIssuingAuthority(user.getIssuingAuthority());
-		return usersDto;
+		viewUserResponse.setUserDetails(usersDto);
+		Set<UserCards> userCards=user.getCards();
+		Iterator<UserCards> namesIterator = userCards.iterator();
+		List<UserCardsDto> userCardsList=new ArrayList<>();
+		while(namesIterator.hasNext()) {
+			UserCardsDto userCardsDto=new UserCardsDto();
+			UserCards userCard=namesIterator.next();
+			userCardsDto.setCardNumber(userCard.getCardNumber());
+			userCardsDto.setCardExpiry(userCard.getCardExpiry());
+			userCardsDto.setNameOnCard(userCard.getNameOnCard());
+			userCardsList.add(userCardsDto);
+			}
+		viewUserResponse.setUserCardDetails(userCardsList);
 	}
 
 	/**
