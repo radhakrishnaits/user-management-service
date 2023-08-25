@@ -2,7 +2,7 @@ package com.wu.usermanagement.model;
 
 import java.util.List;
 
-import com.wu.usermanagement.dto.CardDto;
+import com.wu.usermanagement.dto.UserCardsDto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -30,6 +30,6 @@ public class SignUpRequest {
 	private String identificationNumber;
 	private String issuingAuthority;
 	private String wishToAddCard;
-	private List<CardDto> cardDetails;
+	private List<UserCardsDto> cardDetails;
 
 }

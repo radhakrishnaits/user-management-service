@@ -15,7 +15,7 @@ import com.wu.usermanagement.entity.UserCards;
 import com.wu.usermanagement.entity.Users;
 import com.wu.usermanagement.model.DeleteUserCardResponse;
 import com.wu.usermanagement.model.Message;
-import com.wu.usermanagement.repository.UserardRepository;
+import com.wu.usermanagement.repository.UserCardsRepository;
 import com.wu.usermanagement.repository.UsersRepository;
 
 /**
@@ -26,7 +26,7 @@ public class DeleteUserCardService extends CommonService {
 
 	/** The card repository. */
 	@Autowired
-	private UserardRepository cardRepository;
+	private UserCardsRepository cardRepository;
 	
 	/** The users repository. */
 	@Autowired

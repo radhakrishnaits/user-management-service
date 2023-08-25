@@ -30,6 +30,7 @@ import com.wu.usermanagement.model.UpdateBeneficiaryResponse;
 import com.wu.usermanagement.model.UpdateUserRequest;
 import com.wu.usermanagement.model.UpdateUserResponse;
 import com.wu.usermanagement.model.ViewUserBeneficiaryResponse;
+import com.wu.usermanagement.model.ViewUserCardsResponse;
 import com.wu.usermanagement.model.ViewUserResponse;
 import com.wu.usermanagement.service.AddUserBeneficiaryService;
 import com.wu.usermanagement.service.AddUserCardService;
@@ -42,6 +43,7 @@ import com.wu.usermanagement.service.TransactionsHistoryService;
 import com.wu.usermanagement.service.UpdateUserBeneficiaryService;
 import com.wu.usermanagement.service.UpdateUserService;
 import com.wu.usermanagement.service.ViewUserBeneficiaryService;
+import com.wu.usermanagement.service.ViewUserCardsService;
 import com.wu.usermanagement.service.ViewUserService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -114,6 +116,9 @@ public class UserManagementController {
 	/** The delete user card service. */
 	@Autowired
 	private DeleteUserCardService deleteUserCardService;
+
+	@Autowired
+	private ViewUserCardsService viewUserCardsService;
 
 	/**
 	 * Login user.
@@ -287,7 +292,7 @@ public class UserManagementController {
 			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
 			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
 	@GetMapping("/users/{userName}/beneficiary")
-	public ViewUserBeneficiaryResponse viewUserBeneficiaryResponse(@PathVariable String userName) {
+	public ViewUserBeneficiaryResponse viewUserBeneficiary(@PathVariable String userName) {
 		return viewUserBeneficiaryService.viewUserBeneficiary(userName);
 	}
 
@@ -305,7 +310,7 @@ public class UserManagementController {
 			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
 			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
 
-	@PostMapping("/users/{userName}/card")
+	@PostMapping("/users/{userName}/cards")
 	public AddUserCardResponse addUserCard(@PathVariable String userName,
 			@RequestBody AddUserCardRequest addUserCardRequest) {
 		return addUserCardService.addUserCard(userName, addUserCardRequest);
@@ -325,8 +330,19 @@ public class UserManagementController {
 					@Content(schema = @Schema(implementation = String.class), mediaType = "application/json") }),
 			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
 			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
-	@DeleteMapping("/users/{userName}/card/{cardNumber}")
+	@DeleteMapping("/users/{userName}/cards")
 	public DeleteUserCardResponse deleteUserCard(@PathVariable String userName, @PathVariable Long cardNumber) {
 		return deleteUserCardService.deleteUserCard(userName, cardNumber);
+	}
+
+	@Operation(summary = "get All User Cards", description = "get All user cards", tags = { "getallusercard",
+			"List out all user cards" })
+	@ApiResponses({ @ApiResponse(responseCode = "200", content = {
+			@Content(schema = @Schema(implementation = ViewUserBeneficiaryResponse.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
+	@GetMapping("/users/{userName}/cards")
+	public ViewUserCardsResponse viewUserCards(@PathVariable String userName) {
+		return viewUserCardsService.viewUserCards(userName);
 	}
 }
