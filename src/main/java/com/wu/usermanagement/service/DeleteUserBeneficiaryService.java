@@ -37,7 +37,7 @@ public class DeleteUserBeneficiaryService extends CommonService {
 	DeleteBeneficiaryResponse beneficiaryResponse;
 	
 	/** The beneficiary. */
-	Beneficiary beneficiary;
+	private Beneficiary beneficiary;
 	
 	/** The message source. */
 	@Autowired
@@ -54,7 +54,7 @@ public class DeleteUserBeneficiaryService extends CommonService {
 		
 		Users user = usersRepository.getUserByUserName(userName)
 				.orElseThrow(() -> new ApplicationException(Constants.USER_NOT_FOUND.getStrValue(), userName));
-		Beneficiary beneficiary = beneficiaryRepository.getUserBeneficiaryByNickName(user.getUserId(),nickName);
+		beneficiary = beneficiaryRepository.getUserBeneficiaryByNickName(user.getUserId(),nickName);
 		if (beneficiary == null) {
 			throw new ApplicationException(Constants.USER_BENE_NOT_FOUND.getStrValue(), "nickName");
 		} 
@@ -72,13 +72,10 @@ public class DeleteUserBeneficiaryService extends CommonService {
 	 */
 	public DeleteBeneficiaryResponse createResponse() {
 		beneficiaryResponse = new DeleteBeneficiaryResponse();
-		BeneficiaryDto beneficiaryDto = new BeneficiaryDto();
-		beneficiaryDto.setFirstName(beneficiary.getFirstName());
-		beneficiaryDto.setLastName(beneficiary.getLastName());
-		beneficiaryDto.setCountry(beneficiary.getCountry());
+	
 		beneficiaryResponse.setStatus(HttpStatus.NO_CONTENT.value());
 		beneficiaryResponse.setMessage(new Message(Constants.SUCCESS.getStrValue(),
-				messageSource.getMessage(Constants.USER_ADD_BENEFICIARY_SUCCES.getStrValue(), null, Locale.ENGLISH)));
+				messageSource.getMessage(Constants.USER_DELETE_BENEFICIARY_SUCCES.getStrValue(), null, Locale.ENGLISH)));
 		return beneficiaryResponse;
 	}
 

@@ -54,30 +54,29 @@ public class AddUserBeneficiaryService extends CommonService {
 		if (addBeneficiaryRequest == null) {
 			throw new ApplicationException("beneficiary.data.null", "userName");
 		}
-		Users user = usersRepository.getUserByUserName(userName)
+		Users user = usersRepository.getUserByUserName(userName.trim())
 				.orElseThrow(() -> new ApplicationException(Constants.USER_NOT_FOUND.getStrValue(), userName));
 		List<Beneficiary> beneficiaries = beneficiaryRepository.getBeneficiaryList(user.getUserId());
 		List<Beneficiary> repoBeneficariesCheck = beneficiaries.stream()
-				.filter(ben -> ben.getNickName() == addBeneficiaryRequest.getNickName())
+				.filter(ben -> ben.getNickName().equalsIgnoreCase(addBeneficiaryRequest.getNickName()) )
 				.collect(Collectors.toList());
 		if (repoBeneficariesCheck != null && repoBeneficariesCheck.size() > 0) {
 			throw new ApplicationException(Constants.USER_ADD_BENE_NICK_NAME_NOT_UNIQUE.getStrValue(), "nickName");
-		}
-		if (repoBeneficariesCheck != null && repoBeneficariesCheck.size() > 0) {
-			beneficiary = repoBeneficariesCheck.get(0);
-		} else {
+		}else {
 			beneficiary = new Beneficiary();
 			beneficiary.setBankAccountNumber(addBeneficiaryRequest.getBankAccountNumber());
 			beneficiary.setIban(addBeneficiaryRequest.getIban());
 			beneficiary.setUserId(user.getUserId());
+			beneficiary.setStatus(Constants.ACTIVE_STATUS.getStrValue());
+			beneficiary.setFirstName(addBeneficiaryRequest.getFirstName());
+			beneficiary.setLastName(addBeneficiaryRequest.getLastName());
+			beneficiary.setFirstName(addBeneficiaryRequest.getFirstName());
+			beneficiary.setCountry(addBeneficiaryRequest.getCountry());
+			beneficiary.setNickName(addBeneficiaryRequest.getNickName());
+			beneficiary.setModifiedBy("SYSTEM");
+			beneficiary.setModifiedOn(new Date().toString());
 		}
-		beneficiary.setFirstName(addBeneficiaryRequest.getFirstName());
-		beneficiary.setLastName(addBeneficiaryRequest.getLastName());
-		beneficiary.setFirstName(addBeneficiaryRequest.getFirstName());
-		beneficiary.setCountry(addBeneficiaryRequest.getCountry());
-		beneficiary.setNickName(addBeneficiaryRequest.getNickName());
-		beneficiary.setModifiedBy("SYSTEM");
-		beneficiary.setModifiedOn(new Date().toString());
+		
 		beneficiary = beneficiaryRepository.save(beneficiary);
 		return createResponse();
 	}
@@ -93,7 +92,10 @@ public class AddUserBeneficiaryService extends CommonService {
 		beneficiaryDto.setFirstName(beneficiary.getFirstName());
 		beneficiaryDto.setLastName(beneficiary.getLastName());
 		beneficiaryDto.setCountry(beneficiary.getCountry());
-		beneficiaryResponse.setBeneficiaryDto(beneficiaryDto);
+		beneficiaryDto.setBankAccountNumber(beneficiary.getBankAccountNumber());
+		beneficiaryDto.setIban(beneficiary.getIban());
+		beneficiaryDto.setNickName(beneficiary.getNickName());
+		beneficiaryResponse.setBeneficiary(beneficiaryDto);
 		beneficiaryResponse.setStatus(HttpStatus.OK.value());
 		beneficiaryResponse.setMessage(new Message(Constants.SUCCESS.getStrValue(),
 				messageSource.getMessage(Constants.USER_ADD_BENEFICIARY_SUCCES.getStrValue(), null, Locale.ENGLISH)));

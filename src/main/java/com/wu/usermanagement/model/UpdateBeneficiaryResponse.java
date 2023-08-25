@@ -21,5 +21,5 @@ import lombok.Setter;
 public class UpdateBeneficiaryResponse extends BaseResponse{
     
     /** The beneficiary dto. */
-    private BeneficiaryDto beneficiaryDto;
+    private BeneficiaryDto beneficiary;
 }
