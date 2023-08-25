@@ -1,0 +1,448 @@
+1. Transaction Hostory:
+
+Request: GET
+http://localhost:8080/user-management/v1/users/abcd@abcd.com/txnhistory
+
+Response:
+
+{
+    "status": 200,
+    "message": {
+        "code": "200",
+        "description": "Success"
+    },
+    "errors": null,
+    "transactions": [
+        {
+            "txnId": "SM12341234",
+            "senderId": 1,
+            "receiverId": 1,
+            "txnAmount": 100.0,
+            "senderPaymentMethod": "CARD",
+            "senderCardNumber": 4321432143214321,
+            "senderCardExpiry": "08/2026",
+            "senderNameOnCard": "Radhakrishna",
+            "receiverPaymentMethod": "BANK",
+            "receiverAccountNumber": 12341234,
+            "receiverIban": "IDFC2134",
+            "txnType": "SENDMONEY",
+            "fxRate": 1.1,
+            "exchangeFee": 1.1,
+            "receiverPayOut": 8206.38,
+            "senderCurrency": "USD",
+            "receiverCurrency": "INR",
+            "receiverCountryIso": "IN",
+            "mtcn": 12341234,
+            "txnStatus": "TS",
+            "txnDate": "22-08-2023",
+            "thirdPartyRefId": "FIS12341234",
+            "createdBy": "SYSTEM",
+            "createdOn": "22-08-2023",
+            "modifiedBy": "SYSTEM",
+            "modifiedOn": "22-08-2023",
+            "settlementRefId": "ST12341234",
+            "txnSettledOn": "22-08-2023",
+            "refundReffTxnId": null,
+            "remarks": "Transaction Success"
+        }
+    ]
+}
+
+
+2. Login/SignIn
+
+
+Request: POST
+http://localhost:8080/user-management/v1/signin
+
+{
+    "username":"sathya123@gmail.com",
+    "password":"12345678"
+}
+
+
+Response:
+
+{
+    "status": 200,
+    "message": {
+        "code": "200",
+        "description": "User Authenticated Successfully"
+    },
+    "errors": null
+}
+
+
+3. Signout
+
+Request: POST
+
+http://localhost:8080/user-management/v1/signout
+
+
+{
+    "username":"abcd@abcd.com"
+}
+
+
+Response:
+{
+    "status": 200,
+    "message": {
+        "code": "200",
+        "description": "User Logout Successfully"
+    },
+    "errors": null
+}
+
+4. User Regisdtration
+
+http://localhost:8080/user-management/v1/signup
+Request:POST
+{
+  "userTitle": "Mr",
+  "firstName": "Anup",
+  "lastName": "Repen",
+  "dob": "23/08/1987",
+  "email": "anup@abcd.com",
+  "password": "anup@abcd.com",
+  "phoneNumber": "9888888888",
+   "gender": "Male",
+   "nationality": "Indian",
+   "address1": "Port street, D212",
+   "city": "Bangalore",
+   "state": "Karnataka",
+  "pin": "560022",
+  "country": "India",
+  "countryBirth": "India",
+  "identificationType": "passport",
+  "identificationNumber": "ASE030333",
+  "issuingAuthority": "Govt of India",
+  "wishToAddCard": "Y",
+  "cardDetails": [
+    {
+      "cardNumber": "1234123412341234",
+      "cardExpiry": "09/2025",
+      "nameOnCard": "Anup Rupen"
+    }
+  ]
+}
+
+Response:
+
+{
+    "status": 201,
+    "message": {
+        "code": "200",
+        "description": "User Registered Successfully"
+    },
+    "errors": null
+}
+
+5. View User
+
+GET
+
+http://localhost:8080/user-management/v1/users/absd@abcd.com
+
+Response:
+{
+    "status": 200,
+    "message": {
+        "code": "SUCCESS",
+        "description": "Success"
+    },
+    "errors": null,
+    "userDetails": {
+        "userTitle": "Mr",
+        "firstName": "Radhakrishna1",
+        "lastName": "B",
+        "dob": "22-08-1999",
+        "email": "abcd@abcd.com",
+        "phoneNumber": 9886098860,
+        "gender": "Male",
+        "nationality": "Indian",
+        "address1": "Park Street",
+        "city": "Bangalore",
+        "state": "Karnataka",
+        "pin": null,
+        "country": "India",
+        "countryBirth": "India",
+        "identificationType": "PASSPORT",
+        "identificationNumber": "AKS1212333",
+        "issuingAuthority": "Govt of India"
+    },
+    "userCardDetails": [
+        {
+            "cardNumber": 4444222233334444,
+            "cardExpiry": "08/2031",
+            "nameOnCard": "Brkn"
+        },
+        {
+            "cardNumber": 4321432143214321,
+            "cardExpiry": "08/2026",
+            "nameOnCard": "Radhakrishna"
+        },
+        {
+            "cardNumber": 1111222233334444,
+            "cardExpiry": "08/2035",
+            "nameOnCard": null
+        }
+    ]
+}
+
+
+
+
+
+6. Modify User
+PUT
+http://localhost:8080/user-management/v1/users/abcd@abcd.com
+
+
+{
+        "userTitle": "Mr",
+        "firstName": "Radhakrishna1",
+        "lastName": "B",
+        "dob": "22-08-1999",
+        "phoneNumber": 9886098860,
+        "gender": "Male",
+        "nationality": "Indian",
+        "address1": "Park Street",
+        "city": "Bangalore",
+        "state": "Karnataka",
+        "pin": null,
+        "country": "India",
+        "countryBirth": "India",
+        "identificationType": "PASSPORT",
+        "identificationNumber": "AKS1212333",
+        "issuingAuthority": "Govt of India"
+    }
+	
+	Response:
+
+{
+    "status": 201,
+    "message": {
+        "code": "200",
+        "description": "User Modified Successfully"
+    },
+    "errors": null
+}
+
+7. Add uSer card
+
+http://localhost:8080/user-management/v1/users/abcd@abcd.com/cards
+POST
+
+
+request:
+
+{
+        "cardNumber": 4444222233334444,
+        "cardExpiry": "08/2031",
+        "nameOnCard": "Brkn"
+    }
+	
+	
+Response
+
+{
+    "status": 200,
+    "message": {
+        "code": "200",
+        "description": "User Cards added successfully"
+    },
+    "errors": null
+}
+
+
+8. Delete User Card
+
+http://localhost:8080/user-management/v1/users/abcd@abcd.com/cards/4444222233334444
+DELETE
+{
+    "status": 204,
+    "message": {
+        "code": "200",
+        "description": "User Card deleted successfully"
+    },
+    "errors": null
+}
+
+9. View Users Cards
+
+
+GET
+http://localhost:8080/user-management/v1/users/abcd@abcd.com/cards
+
+Response
+{
+    "status": 200,
+    "message": {
+        "code": "200",
+        "description": "Success"
+    },
+    "errors": null,
+    "userCards": [
+        {
+            "cardNumber": 4321432143214321,
+            "cardExpiry": "08/2026",
+            "nameOnCard": "Radhakrishna"
+        },
+        {
+            "cardNumber": 1111222233334444,
+            "cardExpiry": "08/2035",
+            "nameOnCard": null
+        }
+    ]
+}
+
+
+
+10.Add User Beneficairy
+
+POST
+
+
+http://localhost:8080/user-management/v1/users/anup@abcd.com/beneficiary
+
+Request:
+
+
+{
+
+    "firstName": "Amit",
+
+    "lastName": "Kumar",
+
+    "country": "India",
+
+    "bankAccountNumber": 1234567,
+
+    "iban": "IDFC004",
+
+    "nickName": "Amit2"
+
+}
+
+Response:
+
+
+{
+    "status": 200,
+    "message": {
+        "code": "200",
+        "description": "User Beneficiary Added Successfully"
+    },
+    "errors": null,
+    "beneficiary": {
+        "firstName": "Amit",
+        "lastName": "Kumar",
+        "country": "India",
+        "bankAccountNumber": 1234567,
+        "iban": "IDFC004",
+        "nickName": "Amit2"
+    }
+}
+
+11. View User Beneficairy
+
+View Beneficiary
+
+ 
+
+Request: GET
+https://localhost:8080/user-management/v1/users/{userName}/beneficiary
+
+ 
+
+Example: https://localhost:8080/user-management/v1/users/anup@abcd.com/beneficiary
+
+ 
+
+Response:
+{
+    "status": 200,
+    "message": {
+        "code": "200",
+        "description": "Success"
+    },
+    "errors": null,
+    "beneficiaries": [
+        {
+            "firstName": "Aman",
+            "lastName": "Kumar",
+            "country": "India",
+            "bankAccountNumber": 1234567,
+            "iban": "IDFC004",
+            "nickName": "aman"
+        }
+    ]
+}
+
+ 
+  
+ 
+12.Update User Beneficairy
+
+POST
+
+
+http://localhost:8080/user-management/v1/users/{userName}/beneficiary/{nickName}
+
+Request:
+
+
+{
+
+    "firstName": "Amit",
+
+    "lastName": "Kumar",
+
+    "country": "India",
+
+    "bankAccountNumber": 1234567,
+
+    "iban": "IDFC004",
+
+    "nickName": "Amit2"
+
+}
+
+Response:
+
+
+{
+    "status": 200,
+    "message": {
+        "code": "200",
+        "description": "User Beneficiary Updated Successfully"
+    },
+    "errors": null,
+    "beneficiary": {
+        "firstName": "Amit",
+        "lastName": "Kumar",
+        "country": "India",
+        "bankAccountNumber": 1234567,
+        "iban": "IDFC004",
+        "nickName": "Amit2"
+    }
+}
+
+
+13.Delete User Beneficairy
+
+DELETE
+
+http://localhost:8080/user-management/v1/users/{userName}/beneficiary/{nickName}
+
+Response:
+{
+    "status": 204,
+    "message": {
+        "code": "200",
+        "description": "User Beneficiary Deleted Successfully"
+    },
+    "errors": null
+}
