@@ -66,6 +66,8 @@ public class UpdateUserBeneficiaryService extends CommonService {
 		beneficiary.setFirstName(updateBeneficiaryRequest.getFirstName());
 		beneficiary.setLastName(updateBeneficiaryRequest.getLastName());
 		beneficiary.setCountry(updateBeneficiaryRequest.getCountry());
+		beneficiary.setIban(updateBeneficiaryRequest.getIban());
+		beneficiary.setBankAccountNumber(updateBeneficiaryRequest.getBankAccountNumber());
 		beneficiary.setModifiedBy("SYSTEM");
 		beneficiary.setModifiedOn(new Date().toString());
 		beneficiary = beneficiaryRepository.save(beneficiary);
