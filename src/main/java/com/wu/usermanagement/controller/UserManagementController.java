@@ -330,7 +330,7 @@ public class UserManagementController {
 					@Content(schema = @Schema(implementation = String.class), mediaType = "application/json") }),
 			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
 			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
-	@DeleteMapping("/users/{userName}/cards")
+	@DeleteMapping("/users/{userName}/cards/{cardNumber}")
 	public DeleteUserCardResponse deleteUserCard(@PathVariable String userName, @PathVariable Long cardNumber) {
 		return deleteUserCardService.deleteUserCard(userName, cardNumber);
 	}
