@@ -52,7 +52,7 @@ public class AddUserBeneficiaryService extends CommonService {
 	 */
 	public AddBeneficiaryResponse addUserBeneficiary(String userName, AddBeneficiaryRequest addBeneficiaryRequest) {
 		if (addBeneficiaryRequest == null) {
-			throw new ApplicationException("beneficiary.data.null", "userName");
+			throw new ApplicationException("beneficiary.data.not.found", "userName");
 		}
 		Users user = usersRepository.getUserByUserName(userName.trim())
 				.orElseThrow(() -> new ApplicationException(Constants.USER_NOT_FOUND.getStrValue(), userName));

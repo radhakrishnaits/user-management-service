@@ -53,7 +53,7 @@ public class UpdateUserBeneficiaryService extends CommonService {
 	 */
 	public UpdateBeneficiaryResponse updateUserBeneficiary(String userName, String nickName,UpdateBeneficiaryRequest updateBeneficiaryRequest) {
 		if (updateBeneficiaryRequest == null) {
-			throw new ApplicationException("beneficiary.data.null", "userName");
+			throw new ApplicationException("beneficiary.data.not.found", "userName");
 		}
 		Users user = usersRepository.getUserByUserName(userName)
 				.orElseThrow(() -> new ApplicationException(Constants.USER_NOT_FOUND.getStrValue(), userName));

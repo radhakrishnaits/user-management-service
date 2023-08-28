@@ -2,6 +2,7 @@ package com.wu.usermanagement.model;
 
 import java.util.List;
 
+import com.wu.usermanagement.dto.TransactionsDto;
 import com.wu.usermanagement.entity.Transactions;
 
 import lombok.Getter;
@@ -23,6 +24,6 @@ import lombok.Setter;
 public class TransactionHistoryResponse extends BaseResponse{
 	
 	/** The transactions. */
-	private List<Transactions> transactions;
+	private List<TransactionsDto> transactions;
 
 }

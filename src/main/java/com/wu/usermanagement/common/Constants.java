@@ -46,7 +46,8 @@ public enum Constants {
 	EMAIL_INVALID("E4012"),
 	INVALID_EMAIL_MESSAGE("email.Invalid"),
     CARD_ADDED_SUCCESS("card.success"),
-	CARD_NOT_FOUND_MESSAGE("card.not.found");
+	CARD_NOT_FOUND_MESSAGE("card.not.found"),
+	BENEFICIARY_DATA_NOT_FOUND("beneficiary.data.not.found");
 	/** The str value. */
 	String strValue;
 	
