@@ -71,6 +71,7 @@ public class ViewUserBeneficiaryService extends CommonService {
 			beneficiaryDto.setCountry(beneficiary.getCountry());
 			beneficiaryDto.setBankAccountNumber(beneficiary.getBankAccountNumber());
 			beneficiaryDto.setIban(beneficiary.getIban());
+			beneficiaryDto.setMobileNumber(beneficiary.getMobileNumber());
 			beneficiaryDtos.add(beneficiaryDto);
 		}
 		

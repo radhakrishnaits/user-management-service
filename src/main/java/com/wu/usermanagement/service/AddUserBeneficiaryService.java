@@ -73,6 +73,7 @@ public class AddUserBeneficiaryService extends CommonService {
 			beneficiary.setFirstName(addBeneficiaryRequest.getFirstName());
 			beneficiary.setCountry(addBeneficiaryRequest.getCountry());
 			beneficiary.setNickName(addBeneficiaryRequest.getNickName());
+			beneficiary.setMobileNumber(addBeneficiaryRequest.getMobileNumber());
 			beneficiary.setModifiedBy("SYSTEM");
 			beneficiary.setModifiedOn(new Date().toString());
 		}
@@ -95,6 +96,7 @@ public class AddUserBeneficiaryService extends CommonService {
 		beneficiaryDto.setBankAccountNumber(beneficiary.getBankAccountNumber());
 		beneficiaryDto.setIban(beneficiary.getIban());
 		beneficiaryDto.setNickName(beneficiary.getNickName());
+		beneficiaryDto.setMobileNumber(beneficiary.getMobileNumber());
 		beneficiaryResponse.setBeneficiary(beneficiaryDto);
 		beneficiaryResponse.setStatus(HttpStatus.OK.value());
 		beneficiaryResponse.setMessage(new Message(Constants.SUCCESS.getStrValue(),

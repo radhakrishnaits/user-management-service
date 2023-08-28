@@ -28,11 +28,14 @@ public class BeneficiaryDto {
     private String country;
     
     /** The bank account number. */
-    private int bankAccountNumber;
+    private String bankAccountNumber;
     
     /** The iban. */
     private String iban;
     
     /** The nick name. */
     private String nickName;
+
+    /** The mobile number. */
+    private String mobileNumber;
 }
