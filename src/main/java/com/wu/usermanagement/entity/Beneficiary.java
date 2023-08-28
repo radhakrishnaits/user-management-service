@@ -74,7 +74,7 @@ public class Beneficiary {
     
     /** The bank account number. */
     @Column(name = "bank_account_number")
-    private int bankAccountNumber;
+    private String bankAccountNumber;
     
     /** The iban. */
     @Column(name = "iban")
@@ -83,6 +83,10 @@ public class Beneficiary {
     /** The nick name. */
     @Column(name = "nick_name")
     private String nickName;
+
+    /** The mobile number. */
+    @Column(name = "mobile_number")
+    private String mobileNumber;
     
     /** The status. */
     @Column(name = "status")

@@ -3,6 +3,8 @@ package com.wu.usermanagement.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
+
 /**
  * Gets the nick name.
  *
@@ -28,7 +30,7 @@ public class AddBeneficiaryRequest extends BaseRequest{
     	private String country;
 	    
     	/** The bank account number. */
-    	private Integer bankAccountNumber;
+    	private String bankAccountNumber;
 	    
     	/** The iban. */
     	private String iban;
@@ -36,4 +38,6 @@ public class AddBeneficiaryRequest extends BaseRequest{
     	/** The nick name. */
     	private String nickName;
 
+		/** The mobile number. */
+		private String mobileNumber;
 }
