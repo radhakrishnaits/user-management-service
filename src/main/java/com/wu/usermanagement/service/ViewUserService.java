@@ -77,6 +77,7 @@ public class ViewUserService {
 		usersDto.setIdentificationType(user.getIdentificationType());
 		usersDto.setIdentificationNumber(user.getIdentificationNumber());
 		usersDto.setIssuingAuthority(user.getIssuingAuthority());
+		usersDto.setPin(user.getPin());
 		viewUserResponse.setUserDetails(usersDto);
 		Set<UserCards> userCards=user.getCards();
 		Iterator<UserCards> namesIterator = userCards.iterator();

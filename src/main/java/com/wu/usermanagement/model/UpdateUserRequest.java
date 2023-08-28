@@ -11,7 +11,6 @@ public class UpdateUserRequest {
 	private String firstName;
 	private String lastName;
 	private String dob;
-	private String password;
 	private Long phoneNumber;
 	private String gender;
 	private String nationality;

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.wu.usermanagement.common.ApplicationException;
 import com.wu.usermanagement.common.Constants;
-import com.wu.usermanagement.dto.BeneficiaryDto;
 import com.wu.usermanagement.entity.Beneficiary;
 import com.wu.usermanagement.entity.Users;
 import com.wu.usermanagement.model.DeleteBeneficiaryResponse;
@@ -18,7 +17,6 @@ import com.wu.usermanagement.model.Message;
 import com.wu.usermanagement.repository.BeneficiaryRepository;
 import com.wu.usermanagement.repository.UsersRepository;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class AddUserBeneficiaryService.
  */

@@ -42,7 +42,6 @@ public class UpdateUserService extends CommonService {
         user.setFirstName(updateUserRequest.getFirstName());
         user.setLastName(updateUserRequest.getLastName());
         user.setDob(updateUserRequest.getDob());
-        user.setPassword(updateUserRequest.getPassword());
         user.setPhoneNumber(updateUserRequest.getPhoneNumber());
         user.setGender(updateUserRequest.getGender());
         user.setNationality(updateUserRequest.getNationality());
