@@ -2,49 +2,10 @@ package com.wu.usermanagement.controller;
 
 import javax.validation.Valid;
 
+import com.wu.usermanagement.model.*;
+import com.wu.usermanagement.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.wu.usermanagement.model.AddBeneficiaryRequest;
-import com.wu.usermanagement.model.AddBeneficiaryResponse;
-import com.wu.usermanagement.model.AddUserCardRequest;
-import com.wu.usermanagement.model.AddUserCardResponse;
-import com.wu.usermanagement.model.DeleteBeneficiaryResponse;
-import com.wu.usermanagement.model.DeleteUserCardResponse;
-import com.wu.usermanagement.model.SignInRequest;
-import com.wu.usermanagement.model.SignInResponse;
-import com.wu.usermanagement.model.SignOutRequest;
-import com.wu.usermanagement.model.SignOutResponse;
-import com.wu.usermanagement.model.SignUpRequest;
-import com.wu.usermanagement.model.SignUpResponse;
-import com.wu.usermanagement.model.TransactionHistoryResponse;
-import com.wu.usermanagement.model.UpdateBeneficiaryRequest;
-import com.wu.usermanagement.model.UpdateBeneficiaryResponse;
-import com.wu.usermanagement.model.UpdateUserRequest;
-import com.wu.usermanagement.model.UpdateUserResponse;
-import com.wu.usermanagement.model.ViewUserBeneficiaryResponse;
-import com.wu.usermanagement.model.ViewUserCardsResponse;
-import com.wu.usermanagement.model.ViewUserResponse;
-import com.wu.usermanagement.service.AddUserBeneficiaryService;
-import com.wu.usermanagement.service.AddUserCardService;
-import com.wu.usermanagement.service.DeleteUserBeneficiaryService;
-import com.wu.usermanagement.service.DeleteUserCardService;
-import com.wu.usermanagement.service.SignInUserService;
-import com.wu.usermanagement.service.SignOutUserService;
-import com.wu.usermanagement.service.SignUpUserService;
-import com.wu.usermanagement.service.TransactionsHistoryService;
-import com.wu.usermanagement.service.UpdateUserBeneficiaryService;
-import com.wu.usermanagement.service.UpdateUserService;
-import com.wu.usermanagement.service.ViewUserBeneficiaryService;
-import com.wu.usermanagement.service.ViewUserCardsService;
-import com.wu.usermanagement.service.ViewUserService;
+import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -60,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Tag(name = "user-management", description = "user-management APIs")
 @RestController
 @RequestMapping("/user-management/v1")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 
 /** The Constant log. */
 
@@ -108,6 +70,10 @@ public class UserManagementController {
 	/** The view user beneficiary service. */
 	@Autowired
 	private ViewUserBeneficiaryService viewUserBeneficiaryService;
+
+	/** The view user beneficiary by nickname service. */
+	@Autowired
+	private ViewUserBeneficiaryByNickNameService viewUserBeneficiaryByNickNameService;
 
 	/** The add user card service. */
 	@Autowired
@@ -294,6 +260,24 @@ public class UserManagementController {
 	@GetMapping("/users/{userName}/beneficiary")
 	public ViewUserBeneficiaryResponse viewUserBeneficiary(@PathVariable String userName) {
 		return viewUserBeneficiaryService.viewUserBeneficiary(userName);
+	}
+
+	/**
+	 * View user beneficiary by nickName response.
+	 *
+	 * @param userName the user name
+	 * @param nickName the nick name
+	 * @return the view user beneficiary by nickName response
+	 */
+	@Operation(summary = "get a Beneficiary by nickName", description = "get a Beneficiary by nickName", tags = { "Beneficiary",
+			"Beneficiary data by nickName" })
+	@ApiResponses({ @ApiResponse(responseCode = "200", content = {
+			@Content(schema = @Schema(implementation = ViewUserBeneficiaryResponse.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
+	@GetMapping("/users/{userName}/beneficiary/{nickName}")
+	public ViewUserBeneficiaryByNickNameResponse viewUserBeneficiaryByNickName(@PathVariable String userName, @PathVariable String nickName) {
+		return viewUserBeneficiaryByNickNameService.viewUserBeneficiaryByNickName(userName, nickName);
 	}
 
 	/**

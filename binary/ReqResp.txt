@@ -346,21 +346,14 @@ Response:
     }
 }
 
-11. View User Beneficairy
-
-View Beneficiary
-
- 
+11. View User Beneficairy 
 
 Request: GET
 https://localhost:8080/user-management/v1/users/{userName}/beneficiary
 
- 
-
 Example: https://localhost:8080/user-management/v1/users/anup@abcd.com/beneficiary
 
  
-
 Response:
 {
     "status": 200,
@@ -382,30 +375,49 @@ Response:
 }
 
  
+12. View User Beneficairy by nickName
+
+Request: GET
+https://localhost:8080/user-management/v1/users/{userName}/beneficiary/{nickName}
+
+Example: https://localhost:8080/user-management/v1/users/anup@abcd.com/beneficiary/aman
+
+ 
+Response:
+{
+    "status": 200,
+    "message": {
+        "code": "200",
+        "description": "Success"
+    },
+    "errors": null,
+    "beneficiary": {
+        "firstName": "Aman",
+        "lastName": "Kumar",
+        "country": "India",
+        "bankAccountNumber": 1234567,
+        "iban": "IDFC004",
+        "nickName": "aman"
+    }
+}
+
   
  
-12.Update User Beneficairy
+13.Update User Beneficairy
 
 POST
-
 
 http://localhost:8080/user-management/v1/users/{userName}/beneficiary/{nickName}
 
 Request:
 
-
 {
 
     "firstName": "Amit",
-
     "lastName": "Kumar",
-
     "country": "India",
-
     "bankAccountNumber": 1234567,
-
     "iban": "IDFC004",
-
     "nickName": "Amit2"
 
 }
@@ -431,7 +443,7 @@ Response:
 }
 
 
-13.Delete User Beneficairy
+14.Delete User Beneficairy
 
 DELETE
 
