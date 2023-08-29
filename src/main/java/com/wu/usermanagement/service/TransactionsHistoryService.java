@@ -60,7 +60,7 @@ public class TransactionsHistoryService extends CommonService{
 		
 		Users user=usersRepository.getUserByUserName(userName).orElseThrow(() -> new ApplicationException(Constants.USER_NOT_FOUND.getStrValue(), userName));
 		transactions=transactionsRepository.getAllTransactionByUserId(user.getUserId());
-		if(transactions!=null&&transactions.isEmpty()) {
+		if(transactions==null||transactions.isEmpty()) {
 	    	 throw new ApplicationException(Constants.NO_RECORDS_EXISTS.getStrValue(), userName);
 	     }
 		transactionsDtos = new ArrayList<>();
