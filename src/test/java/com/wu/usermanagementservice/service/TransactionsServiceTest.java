@@ -1,4 +1,4 @@
-package com.wu.usermanagementservice.repo;
+package com.wu.usermanagementservice.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

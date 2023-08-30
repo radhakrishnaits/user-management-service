@@ -88,7 +88,13 @@ public class TransactionsHistoryService extends CommonService{
 			transactionsDto1.setReceiverCurrency(transactions1.getReceiverCurrency());
 			transactionsDto1.setReceiverCountryIso(transactions1.getReceiverCountryIso());
 			transactionsDto1.setMtcn(transactions1.getMtcn());
-			transactionsDto1.setTxnStatus(transactions1.getTxnStatus());
+			if(transactions1.getTxnStatus().equalsIgnoreCase("TS")) {
+				transactionsDto1.setTxnStatus("Success");
+			}else if(transactions1.getTxnStatus().equalsIgnoreCase("TF")) {
+				transactionsDto1.setTxnStatus("Failed");
+			}else if(transactions1.getTxnStatus().equalsIgnoreCase("TR")) {
+				transactionsDto1.setTxnStatus("Refundeed");
+			}
 			transactionsDto1.setTxnDate(transactions1.getTxnDate());
 			transactionsDto1.setThirdPartyRefId(transactions1.getThirdPartyRefId());
 			transactionsDto1.setCreatedBy(transactions1.getCreatedBy());
