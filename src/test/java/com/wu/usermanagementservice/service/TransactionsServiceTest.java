@@ -61,7 +61,6 @@ public class TransactionsServiceTest {
 				.viewTransactionHistoryByUserName(anyString());
 		// Then
 		assertEquals(transactionsList.size(), transactionHistoryResponse.getTransactions().size());
-		assertEquals(transactionsList.size(), transactionHistoryResponse.getTransactions().size());
 		verify(this.usersRepository).getUserByUserName("");
 		verify(this.beneficiaryRepository).findById(1l);
 		verify(this.transactionsRepository).getAllTransactionByUserId(1l);

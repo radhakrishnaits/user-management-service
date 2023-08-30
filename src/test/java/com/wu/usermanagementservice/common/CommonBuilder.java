@@ -21,6 +21,7 @@ public class CommonBuilder {
 		transactions.setMtcn(313213l);
 		transactions.setTxnType("SendMoney");
 		transactions.setCreatedBy("SYSTEM");
+		transactions.setTxnStatus("TS");
 		transactions.setCreatedOn(new Date().toString());
 		return transactions;
 	}
