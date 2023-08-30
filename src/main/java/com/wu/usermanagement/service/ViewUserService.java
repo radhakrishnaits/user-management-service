@@ -82,14 +82,16 @@ public class ViewUserService {
 		Set<UserCards> userCards=user.getCards();
 		Iterator<UserCards> namesIterator = userCards.iterator();
 		List<UserCardsDto> userCardsList=new ArrayList<>();
-		while(namesIterator.hasNext()) {
-			UserCardsDto userCardsDto=new UserCardsDto();
-			UserCards userCard=namesIterator.next();
-			userCardsDto.setCardNumber(userCard.getCardNumber());
-			userCardsDto.setCardExpiry(userCard.getCardExpiry());
-			userCardsDto.setNameOnCard(userCard.getNameOnCard());
-			userCardsList.add(userCardsDto);
+		while (namesIterator.hasNext()) {
+			UserCardsDto userCardsDto = new UserCardsDto();
+			UserCards userCard = namesIterator.next();
+			if (userCard.getStatus().equalsIgnoreCase(Constants.ACTIVE_STATUS.getStrValue())) {
+				userCardsDto.setCardNumber(userCard.getCardNumber());
+				userCardsDto.setCardExpiry(userCard.getCardExpiry());
+				userCardsDto.setNameOnCard(userCard.getNameOnCard());
 			}
+			userCardsList.add(userCardsDto);
+		}
 		viewUserResponse.setUserCardDetails(userCardsList);
 	}
 
