@@ -10,6 +10,8 @@ import com.wu.usermanagement.entity.Beneficiary;
 import com.wu.usermanagement.entity.Transactions;
 import com.wu.usermanagement.entity.UserCards;
 import com.wu.usermanagement.entity.Users;
+import com.wu.usermanagement.model.AddUserCardRequest;
+import com.wu.usermanagement.model.UpdateUserRequest;
 
 public class CommonBuilder {
 
@@ -62,9 +64,30 @@ public class CommonBuilder {
 		return users;
 	}
 
+	public static UpdateUserRequest getUpdateUserRequest() {
+		UpdateUserRequest updateUserRequest = new UpdateUserRequest();
+		updateUserRequest.setUserTitle("Mr.");
+		updateUserRequest.setAddress1("TPR ROAD");
+		updateUserRequest.setCity("Bangalore");
+		updateUserRequest.setCountry("USA");
+		updateUserRequest.setCountryBirth("USA");
+		updateUserRequest.setDob("20/08/1999");
+		updateUserRequest.setFirstName("Ram");
+		updateUserRequest.setLastName("Kumar");
+		updateUserRequest.setGender("Male");
+		updateUserRequest.setIdentificationNumber("A12133");
+		updateUserRequest.setIdentificationType("PASSPORT");
+		updateUserRequest.setIssuingAuthority("Govt Of India");
+		updateUserRequest.setNationality("Indian");
+		updateUserRequest.setPhoneNumber(98888888888l);
+		updateUserRequest.setPin(636366l);
+		updateUserRequest.setState("KA");
+		return updateUserRequest;
+	}
+
 	public static UserCards getUsersCard() {
 		UserCards userCard = new UserCards();
-		userCard.setCardId(13234323);
+		userCard.setCardId(1);
 		userCard.setCardNumber(4321432143214321l);
 		userCard.setCardExpiry("08/2026");
 		userCard.setStatus("Y");
@@ -80,7 +103,14 @@ public class CommonBuilder {
 		usersCards.add(getUsersCard());
 		return usersCards;
 	}
-	
+
+	public static AddUserCardRequest addUserCardRequest(){
+		AddUserCardRequest addUserCardRequest = new AddUserCardRequest();
+		addUserCardRequest.setCardNumber(4321432143214321L);
+		addUserCardRequest.setCardExpiry("08/2026");
+		addUserCardRequest.setNameOnCard("TPR RAO");
+	    return addUserCardRequest;
+	}
 	
 	public static Beneficiary getUserBeneFiciary() {
 		Beneficiary beneficiary = new Beneficiary();
